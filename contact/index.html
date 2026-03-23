@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <a href="/">
+            <img src="https://annettemurray.neocities.org/icons/Annette%20Murray%20Logo.svg" alt="Annette Murray Logo" />
+          </a>
+        </div>
+
+        <nav>
+          <ul>
+            <li><a href="/filmography/">filmography</a></li>
+            <li><a href="/photography/">photography</a></li>
+            <li><a href="/resume/">resume</a></li>
+            <li><a href="/contact/">contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/annettecmurray" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/linked%20in%20button.svg" alt="LinkedIn" />
+          </a>
+          <a href="https://instagram.com/annettemurrayy" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/insta%20button.svg" alt="Instagram" />
+          </a>
+          <a href="https://www.youtube.com/@annettemurrayy" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/youtube%20button.svg" alt="YouTube" />
+          </a>
+          <a href="https://www.imdb.com/name/nm17785613/?ref_=ext_shr_lnkm" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/imdb%20button.svg" alt="IMDb" />
+          </a>
+        </div>
+      </aside>
+
+      <main>
+        <div class="mobile-header">
+          <button class="hamburger" id="menuBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="page-topline">contact</div>
+        </div>
+
+        <img class="decor-top-right" src="https://annettemurray.neocities.org/icons/frameright.svg" alt="" />
+        <img class="decor-bottom-left" src="https://annettemurray.neocities.org/icons/frameleft.svg" alt="" />
+
+        <section class="contact-section">
+          <h1 class="contact-header">Let’s work together!</h1>
+
+          <form
+            class="contact-form"
+            action="https://formsubmit.co/annettemurr.c@gmail.com"
+            method="POST"
+          >
+            <input type="hidden" name="_next" value="https://portfolio.github.io/thanks.html">
+            <input type="hidden" name="_subject" value="New portfolio contact">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="text" name="_honey" style="display:none">
+
+            <div class="contact-row two">
+              <div>
+                <label for="first_name">First name*</label>
+                <input id="first_name" name="first_name" type="text" required>
+              </div>
+              <div>
+                <label for="last_name">Last name*</label>
+                <input id="last_name" name="last_name" type="text" required>
+              </div>
+            </div>
+
+            <label for="email">Email*</label>
+            <input id="email" name="email" type="email" required>
+
+            <label for="subject">Subject*</label>
+            <input id="subject" name="subject" type="text" required>
+
+            <label for="message">Message*</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit" class="contact-btn">Send Message</button>
+          </form>
+        </section>
+
+        <div class="bottom-centered">
+          <img src="https://annettemurray.neocities.org/icons/email.svg" alt="" />
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const btn = document.getElementById('menuBtn');
+      const sidebar = document.getElementById('sidebar');
+      if (btn && sidebar) {
+        btn.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+          btn.classList.toggle('is-open');
+        });
+      }
+    </script>
+
+    <style>
+      .contact-section {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .contact-header {
+        font-family: 'Trochut', serif;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .contact-row.two {
+        display: grid;
+        gap: 1rem;
+      }
+
+      @media (min-width: 600px) {
+        .contact-row.two {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .contact-form label {
+        font-family: 'Lancelot', serif;
+        font-size: 1.2rem;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        padding: 0.75rem;
+        border: 1.5px solid #9f0b0b;
+        border-radius: 12px;
+        font-family: 'Times New Roman', serif;
+        background: #fffaf0;
+      }
+
+      .contact-form textarea {
+        min-height: 140px;
+      }
+
+      .contact-btn {
+        padding: 0.8rem 1.5rem;
+        background: #9f0b0b;
+        color: #fffaf0;
+        border-radius: 999px;
+        font-family: 'Trochut', serif;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease;
+      }
+
+      .contact-btn:hover {
+        background: #7a0000;
+        transform: scale(1.05);
+      }
+    </style>
+  </body>
+</html>
