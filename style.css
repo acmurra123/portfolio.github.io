@@ -282,6 +282,55 @@ main h1 {
   transform: translateY(-8px) rotate(-45deg);
 }
 
+.film-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.film-meta {
+  font-family: 'Lancelot', serif;
+  font-size: 1.4rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.film-hero {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+.film-details p,
+.film-description p {
+  font-family: 'Lancelot', serif;
+  font-size: 1.4rem;
+  line-height: 1.7;
+}
+
+.film-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.film-nav a {
+  text-decoration: none;
+  color: #9f0b0b;
+  font-family: 'Trochut', serif;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.film-nav a:hover {
+  transform: scale(1.04);
+  opacity: 0.8;
+}
+
 /* Mobile */
 @media (max-width: 800px) {
   main {
