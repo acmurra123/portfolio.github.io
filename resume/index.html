@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <a href="/">
+            <img src="https://annettemurray.neocities.org/icons/Annette%20Murray%20Logo.svg" alt="Annette Murray Logo" />
+          </a>
+        </div>
+
+        <nav>
+          <ul>
+            <li><a href="/filmography/">filmography</a></li>
+            <li><a href="/photography/">photography</a></li>
+            <li><a href="/resume/">resume</a></li>
+            <li><a href="/contact/">contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/annettecmurray" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/linked%20in%20button.svg" alt="LinkedIn" />
+          </a>
+          <a href="https://instagram.com/annettemurrayy" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/insta%20button.svg" alt="Instagram" />
+          </a>
+          <a href="https://www.youtube.com/@annettemurrayy" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/youtube%20button.svg" alt="YouTube" />
+          </a>
+          <a href="https://www.imdb.com/name/nm17785613/?ref_=ext_shr_lnk" target="_blank" rel="noopener">
+            <img src="https://annettemurray.neocities.org/icons/imdb%20button.svg" alt="IMDb" />
+          </a>
+        </div>
+      </aside>
+
+      <main>
+        <div class="mobile-header">
+          <button class="hamburger" id="menuBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="page-topline">resume</div>
+        </div>
+
+        <img class="decor-top-right" src="https://annettemurray.neocities.org/icons/frameright.svg" alt="" />
+        <img class="decor-bottom-left" src="https://annettemurray.neocities.org/icons/frameleft.svg" alt="" />
+
+        <p>This Page is Under Construction!</p>
+
+        <div class="bottom-centered">
+          <img src="https://annettemurray.neocities.org/icons/email.svg" alt="" />
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const btn = document.getElementById('menuBtn');
+      const sidebar = document.getElementById('sidebar');
+
+      if (btn && sidebar) {
+        btn.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+          btn.classList.toggle('is-open');
+        });
+      }
+    </script>
+  </body>
+</html>
