@@ -330,7 +330,7 @@ main h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 260px));
   gap: 1rem;
-  justify-content: start;
+  justify-content: center;
 }
 
 .stills-grid img {
