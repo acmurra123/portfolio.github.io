@@ -10,6 +10,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   </head>
+  <script>
+    const btn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+  
+    if (btn && sidebar) {
+      btn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        btn.classList.toggle('is-open');
+      });
+    }
+  
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.getElementById('lightbox-content');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxImages = document.querySelectorAll('.lightbox-img');
+  
+    lightboxImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxContent.src = img.src;
+        lightboxContent.alt = img.alt;
+      });
+    });
+  
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+      });
+    }
+  
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          lightbox.style.display = 'none';
+        }
+      });
+    }
+  </script>
   <body>
     <div class="layout">
       <aside class="sidebar" id="sidebar">
