@@ -404,4 +404,51 @@ main h1 {
   .film-grid {
     grid-template-columns: 1fr;
   }
+  
+  .film-video {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+  }
+  
+  .film-video iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    border: none;
+  }
+  
+  /* Stills section */
+  .film-stills {
+    margin-top: 2rem;
+  }
+  
+  .film-stills h2 {
+    font-family: 'Trochut', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .stills-grid img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  
+  .stills-grid img:hover {
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+  
+  /* Mobile */
+  @media (max-width: 800px) {
+    .stills-grid {
+      grid-template-columns: 1fr;
+    }
 }
