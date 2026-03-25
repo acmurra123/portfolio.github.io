@@ -225,8 +225,8 @@ main h1 {
 /*Contact*/
 .contact-graphic {
   display: block;
-  margin: 0 auto 1.5rem; /* centers + spacing below */
-  max-width: 300px;      /* adjust size */
+  margin: 0 auto 1.5rem;
+  max-width: 50px;  
   width: 80%;
   height: auto;
 }
