@@ -95,6 +95,16 @@ nav a {
   color: #7a0000;
 }
 
+.footer-credit {
+  text-align: center;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+  font-family: 'Lancelot', serif;
+  font-size: 1rem;
+  color: #9f0b0b;
+  opacity: 0.7;
+}
+
 /* Social buttons */
 .social-links {
   display: flex;
