@@ -1,29 +1,105 @@
-<main>
-  <div class="mobile-header">
-    <button class="hamburger" id="menuBtn" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="page-topline">annette murray</div>
-  </div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <link href="style.css" rel="stylesheet" type="text/css" media="all" />
 
-  <img class="decor-top-right" src="/icons/frameright.svg" alt="" />
-  <img class="decor-bottom-left" src="/icons/frameleft.svg" alt="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <a href="/">
+            <img src="/icons/Annette Murray Logo.svg" alt="Annette Murray Logo" />
+          </a>
+        </div>
 
-  <section class="landing-section">
-    <img src="/icons/Annette Murray Logo.svg" class="landing-logo" alt="Annette Murray" />
+        <nav>
+          <ul>
+            <li><a href="/filmography/">filmography</a></li>
+            <li><a href="/photography/">photography</a></li>
+            <!--<li><a href="/resume/">resume</a></li>-->
+            <li><a href="/contact/">contact</a></li>
+          </ul>
+        </nav>
 
-    <p class="landing-text">
-      Site under maintenance.<br />
-      Cinematography reel and full portfolio coming soon.
-    </p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/annettecmurray" target="_blank" rel="noopener">
+            <img src="/icons/linked in button.svg" alt="LinkedIn" />
+          </a>
+          <a href="https://instagram.com/annettemurrayy" target="_blank" rel="noopener">
+            <img src="/icons/insta button.svg" alt="Instagram" />
+          </a>
+          <a href="https://www.youtube.com/@annettemurrayy" target="_blank" rel="noopener">
+            <img src="/icons/youtube button.svg" alt="YouTube" />
+          </a>
+          <a href="https://www.imdb.com/name/nm17785613/?ref_=ext_shr_lnk" target="_blank" rel="noopener">
+            <img src="/icons/imdb button.svg" alt="IMDb" />
+          </a>
+        </div>
 
-    <div class="landing-links">
-      <a href="/contact/">contact</a>
-      <a href="https://instagram.com/annettemurrayy" target="_blank" rel="noopener">instagram</a>
+        <div class="sidebar-footer">
+          © 2026 Annette Murray
+        </div>
+      </aside>
+
+      <main>
+        <div class="mobile-header">
+          <button class="hamburger" id="menuBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+          <div class="page-topline">cinematographer & photographer</div>
+        </div>
+
+        <div class="film-reel-container">
+          <iframe
+            src="https://www.youtube.com/embed/-hJaMeOn9nI?autoplay=1&mute=1&controls=0&loop=1&playlist=-hJaMeOn9nI&modestbranding=1&playsinline=1"
+            title="Film reel"
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <img class="decor-top-right" src="/icons/frameright.svg" alt="" />
+        <img class="decor-bottom-left" src="/icons/frameleft.svg" alt="" />
+
+        <h1>About Annette Murray</h1>
+
+        <p>
+          <img class="about-photo" src="/icons/headshot.svg" alt="Annette headshot" />
+          Annette Murray is a biracial filmmaker, cinematographer, and photographer from Queens, New York. Growing up in one of the most diverse places in the world, she learned to find beauty in the intricacies of everyday life. Through her work, Annette strives to tell stories that are both beautiful in style and in meaning so that those who watch may feel seen.
+        </p>
+
+        <p>
+          Her filmic style is versatile, shaped by a love for distinct aesthetics and collaboration with directors who bring strong visual visions to their projects. Annette’s creative interests include stories centered on the female experience (particularly motherhood), explorations of interpersonal relationships, and psychological thrillers that delve into the complexities of the mind.
+        </p>
+
+        <p>
+          Her passion for film and visual arts began from a young age, she entered college with the intention to learn all she could about the world of visual storytelling. She is currently an undergraduate at Cornell University studying Film and Psychology.
+        </p>
+        
+        <div class="bottom-centered">
+          <img src="/icons/email.svg" alt="" />
+        </div>
+      </main>
     </div>
-  </section>
 
-  <div class="bottom-centered">
-    <img src="/icons/email.svg" alt="" />
-  </div>
-</main>
+    <script>
+      const btn = document.getElementById('menuBtn');
+      const sidebar = document.getElementById('sidebar');
+
+      if (btn && sidebar) {
+        btn.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+          btn.classList.toggle('is-open');
+        });
+      }
+    </script>
+  </body>
+</html>
