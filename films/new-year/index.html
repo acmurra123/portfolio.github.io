@@ -31,7 +31,7 @@
 
         <div class="social-links">
           <a href="https://www.linkedin.com/in/annettecmurray" target="_blank" rel="noopener">
-            <img src="/icons/linked in utton.svg" alt="LinkedIn" />
+            <img src="/icons/linked in button.svg" alt="LinkedIn" />
           </a>
           <a href="https://instagram.com/annettemurrayy" target="_blank" rel="noopener">
             <img src="/icons/insta button.svg" alt="Instagram" />
@@ -65,24 +65,26 @@
           </div>
 
           <div class="film-video">
-            <iframe
+            <!--<iframe
               src="https://www.youtube.com/embed/-hJaMeOn9nI"
               title="New Year (2025)"
               frameborder="0"
               allow="autoplay; encrypted-media; picture-in-picture"
               allowfullscreen>
-            </iframe>
+            </iframe>-->
           </div>
 
           <div class="film-stills">
             <div class="stills-grid">
-              <img src="/filmography/stills/sbodstill1.jpg" alt="Still 1" class="lightbox-img" />
-              <img src="/filmography/stills/sbodstill1.jpg" alt="Still 2" class="lightbox-img" />
+              <!--<img src="/filmography/stills/sbodstill1.jpg" alt="Still 1" class="lightbox-img" />
+              <img src="/filmography/stills/sbodstill2.jpg" alt="Still 2" class="lightbox-img" />-->
             </div>
           </div>
 
           <div class="lightbox" id="lightbox">
             <span class="lightbox-close" id="lightbox-close">&times;</span>
+            <img src="/icons/arrow.svg" class="lightbox-prev" alt="Previous image" onclick="prevImage()" />
+            <img src="/icons/arrow right.svg" class="lightbox-next" alt="Next image" onclick="nextImage()" />
             <img class="lightbox-content" id="lightbox-content" alt="" />
           </div>
 
@@ -114,13 +116,32 @@
       const lightboxClose = document.getElementById('lightbox-close');
       const lightboxImages = document.querySelectorAll('.lightbox-img');
 
-      lightboxImages.forEach(img => {
+      let currentIndex = 0;
+
+      function showImage(index) {
+        currentIndex = index;
+        const img = lightboxImages[currentIndex];
+        if (!img) return;
+        lightboxContent.src = img.src;
+        lightboxContent.alt = img.alt;
+        lightbox.style.display = 'flex';
+      }
+
+      lightboxImages.forEach((img, index) => {
         img.addEventListener('click', () => {
-          lightbox.style.display = 'flex';
-          lightboxContent.src = img.src;
-          lightboxContent.alt = img.alt;
+          showImage(index);
         });
       });
+
+      window.nextImage = function () {
+        currentIndex = (currentIndex + 1) % lightboxImages.length;
+        showImage(currentIndex);
+      };
+
+      window.prevImage = function () {
+        currentIndex = (currentIndex - 1 + lightboxImages.length) % lightboxImages.length;
+        showImage(currentIndex);
+      };
 
       if (lightboxClose) {
         lightboxClose.addEventListener('click', () => {
@@ -135,6 +156,14 @@
           }
         });
       }
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox && lightbox.style.display === 'flex') {
+          if (e.key === 'ArrowRight') nextImage();
+          if (e.key === 'ArrowLeft') prevImage();
+          if (e.key === 'Escape') lightbox.style.display = 'none';
+        }
+      });
     </script>
   </body>
 </html>
