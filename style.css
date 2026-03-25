@@ -198,7 +198,7 @@ main h1 {
   display: block;
 }
 
-/* Landing page */
+/* Landing */
 .landing-section {
   max-width: 900px;
   margin: 0 auto;
@@ -250,53 +250,30 @@ main h1 {
 }
 
 @media (max-width: 800px) {
-  .landing-page {
-    padding: 1.5rem 1rem;
+  .landing-section {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
   }
 
   .landing-logo {
-    width: 190px;
+    width: 200px;
     max-width: 75%;
-    margin-bottom: 1rem;
-  }
-
-  .landing-header-graphic {
-    width: 170px;
-    max-width: 70%;
   }
 
   .landing-text {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     line-height: 1.5;
-    max-width: 90%;
   }
 
-  .landing-actions {
+  .landing-links {
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
   }
 
-  .landing-btn {
+  .landing-links a {
     width: 100%;
     max-width: 240px;
   }
-
-  .landing-decor-top-right,
-  .landing-decor-bottom-left {
-    width: 120px;
-    opacity: 0.9;
-  }
-}
-
-/* About image */
-.about-photo {
-  float: right;
-  margin: 0 0 1.5rem 2rem;
-  max-width: 250px;
-  width: 40%;
-  height: auto;
-}
 
 /* Film reel */
 .film-reel-container {
