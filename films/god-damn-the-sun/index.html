@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   </head>
+
   <body>
     <div class="layout">
       <aside class="sidebar" id="sidebar">
         <div class="brand">
           <a href="/">
-            <img src="https://annettemurray.neocities.org/icons/Annette%20Murray%20Logo.svg" alt="Annette Murray Logo" />
+            <img src="/icons/Annette Murray Logo.svg" alt="Annette Murray Logo" />
           </a>
         </div>
 
@@ -30,17 +31,21 @@
 
         <div class="social-links">
           <a href="https://www.linkedin.com/in/annettecmurray" target="_blank" rel="noopener">
-            <img src="https://annettemurray.neocities.org/icons/linked%20in%20button.svg" alt="LinkedIn" />
+            <img src="/icons/linked in button.svg" alt="LinkedIn" />
           </a>
           <a href="https://instagram.com/annettemurrayy" target="_blank" rel="noopener">
-            <img src="https://annettemurray.neocities.org/icons/insta%20button.svg" alt="Instagram" />
+            <img src="/icons/insta button.svg" alt="Instagram" />
           </a>
           <a href="https://www.youtube.com/@annettemurrayy" target="_blank" rel="noopener">
-            <img src="https://annettemurray.neocities.org/icons/youtube%20button.svg" alt="YouTube" />
+            <img src="/icons/youtube button.svg" alt="YouTube" />
           </a>
           <a href="https://www.imdb.com/name/nm17785613/?ref_=ext_shr_lnk" target="_blank" rel="noopener">
-            <img src="https://annettemurray.neocities.org/icons/imdb%20button.svg" alt="IMDb" />
+            <img src="/icons/imdb button.svg" alt="IMDb" />
           </a>
+        </div>
+
+        <div class="sidebar-footer">
+          © 2026 Annette Murray
         </div>
       </aside>
 
@@ -52,27 +57,49 @@
           <div class="page-topline">filmography</div>
         </div>
 
-        <img class="decor-top-right" src="https://annettemurray.neocities.org/icons/frameright.svg" alt="" />
-        <img class="decor-bottom-left" src="https://annettemurray.neocities.org/icons/frameleft.svg" alt="" />
+        <img class="decor-top-right" src="/icons/frameright.svg" alt="" />
+        <img class="decor-bottom-left" src="/icons/frameleft.svg" alt="" />
 
         <section class="film-page">
           <h1>God Damn the Sun</h1>
           <p class="film-meta">2025 · Short Film</p>
 
-          <!--<img class="film-hero" src="https://annettemurray.neocities.org/films/film1-thumbnail.jpg" alt="Still" />-->
-
           <div class="film-details">
             <p>Director of Photography</p>
           </div>
 
+          <div class="film-video">
+            <!--<iframe
+              src="https://www.youtube.com/embed/-hJaMeOn9nI"
+              title="God Damn the Sun (2025)"
+              frameborder="0"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen>
+            </iframe>-->
+          </div>
+
+          <div class="film-stills">
+            <div class="stills-grid">
+              <!--<img src="/filmography/stills/sbodstill1.jpg" alt="Still 1" class="lightbox-img" />
+              <img src="/filmography/stills/sbodstill2.jpg" alt="Still 2" class="lightbox-img" />-->
+            </div>
+          </div>
+
+          <div class="lightbox" id="lightbox">
+            <span class="lightbox-close" id="lightbox-close">&times;</span>
+            <img src="/icons/arrow.svg" class="lightbox-prev" alt="Previous image" onclick="prevImage()" />
+            <img src="/icons/arrow right.svg" class="lightbox-next" alt="Next image" onclick="nextImage()" />
+            <img class="lightbox-content" id="lightbox-content" alt="" />
+          </div>
+
           <div class="film-nav">
             <a href="/films/sweet-bunch-of-daisies/">← Sweet Bunch of Daisies (2025)</a>
-            <a href="/films/delilah/"> Delilah (2026)→</a>
+            <a href="/films/delilah/">Delilah (Coming 2026) →</a>
           </div>
         </section>
 
         <div class="bottom-centered">
-          <img src="https://annettemurray.neocities.org/icons/email.svg" alt="" />
+          <img src="/icons/email.svg" alt="" />
         </div>
       </main>
     </div>
@@ -87,6 +114,60 @@
           btn.classList.toggle('is-open');
         });
       }
+
+      const lightbox = document.getElementById('lightbox');
+      const lightboxContent = document.getElementById('lightbox-content');
+      const lightboxClose = document.getElementById('lightbox-close');
+      const lightboxImages = document.querySelectorAll('.lightbox-img');
+
+      let currentIndex = 0;
+
+      function showImage(index) {
+        currentIndex = index;
+        const img = lightboxImages[currentIndex];
+        if (!img) return;
+        lightboxContent.src = img.src;
+        lightboxContent.alt = img.alt;
+        lightbox.style.display = 'flex';
+      }
+
+      lightboxImages.forEach((img, index) => {
+        img.addEventListener('click', () => {
+          showImage(index);
+        });
+      });
+
+      window.nextImage = function () {
+        currentIndex = (currentIndex + 1) % lightboxImages.length;
+        showImage(currentIndex);
+      };
+
+      window.prevImage = function () {
+        currentIndex = (currentIndex - 1 + lightboxImages.length) % lightboxImages.length;
+        showImage(currentIndex);
+      };
+
+      if (lightboxClose) {
+        lightboxClose.addEventListener('click', () => {
+          lightbox.style.display = 'none';
+        });
+      }
+
+      if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox && lightbox.style.display === 'flex') {
+          if (e.key === 'ArrowRight') nextImage();
+          if (e.key === 'ArrowLeft') prevImage();
+          if (e.key === 'Escape') lightbox.style.display = 'none';
+        }
+      });
     </script>
   </body>
 </html>
