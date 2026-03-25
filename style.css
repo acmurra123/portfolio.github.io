@@ -222,6 +222,41 @@ main h1 {
   border-radius: 12px;
 }
 
+/*Contact*/
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.contact-card {
+  display: block;
+  padding: 1rem 1.2rem;
+  border: 1.5px solid #9f0b0b;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  background: #fffaf0;
+  transition: all 0.3s ease;
+}
+
+.contact-card strong {
+  display: block;
+  font-family: 'Trochut', serif;
+  font-size: 1.2rem;
+}
+
+.contact-card span {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.contact-card:hover {
+  transform: scale(1.02);
+  background: #fdf3e0;
+}
+
 /* Film grid */
 .film-grid {
   display: grid;
