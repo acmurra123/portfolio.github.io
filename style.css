@@ -377,6 +377,32 @@ main h1 {
   line-height: 1;
 }
 
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+  z-index: 6000;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  transform: translateY(-50%) scale(1.15);
+  opacity: 0.8;
+}
+
 /* Hamburger */
 .hamburger {
   display: none;
