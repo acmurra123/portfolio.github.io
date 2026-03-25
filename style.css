@@ -396,8 +396,8 @@ main h1 {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
+  width: 70px;
+  height: auto;
   max-width: 42px;
   max-height: 42px;
   object-fit: contain;
