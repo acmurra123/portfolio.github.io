@@ -361,8 +361,8 @@ main h1 {
 .lightbox {
   display: none;
   position: fixed;
-  z-index: 5000;
   inset: 0;
+  z-index: 5000;
   background: rgba(0, 0, 0, 0.88);
   justify-content: center;
   align-items: center;
@@ -372,6 +372,8 @@ main h1 {
 .lightbox-content {
   max-width: 90vw;
   max-height: 85vh;
+  width: auto;
+  height: auto;
   border-radius: 12px;
   display: block;
 }
@@ -380,19 +382,13 @@ main h1 {
   position: absolute;
   top: 20px;
   right: 28px;
-  font-size: 2.2rem;     
-  color: #9f0b0b;         
+  font-size: 2.2rem;
+  color: #9f0b0b;
   cursor: pointer;
-  font-family: 'Trochut', serif; 
-  font-weight: 400;  
+  font-family: 'Trochut', serif;
+  font-weight: 400;
   line-height: 1;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.lightbox-close:hover {
-  transform: scale(1.15);
-  opacity: 0.7;
-}
+  z-index: 6001;
 }
 
 .lightbox-prev,
@@ -400,10 +396,13 @@ main h1 {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: auto;
+  width: 42px;
+  height: 42px;
+  max-width: 42px;
+  max-height: 42px;
+  object-fit: contain;
   cursor: pointer;
-  z-index: 6000;
+  z-index: 6001;
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
@@ -417,7 +416,7 @@ main h1 {
 
 .lightbox-prev:hover,
 .lightbox-next:hover {
-  transform: translateY(-50%) scale(1.15);
+  transform: translateY(-50%) scale(1.12);
   opacity: 0.8;
 }
 
