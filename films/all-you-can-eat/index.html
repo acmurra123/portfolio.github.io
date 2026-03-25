@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Trochut:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   </head>
+
   <body>
     <div class="layout">
       <aside class="sidebar" id="sidebar">
@@ -42,6 +43,10 @@
             <img src="/icons/imdb button.svg" alt="IMDb" />
           </a>
         </div>
+
+        <div class="sidebar-footer">
+          © 2026 Annette Murray
+        </div>
       </aside>
 
       <main>
@@ -57,16 +62,39 @@
 
         <section class="film-page">
           <h1>All You Can Eat</h1>
-          <p class="film-meta">Upcoming 2026 · Short Film</p>
-
-          <!--<img class="film-hero" src="/films/film1-thumbnail.jpg" alt="Still" />-->
+          <p class="film-meta">2025 · Short Film</p>
 
           <div class="film-details">
             <p>Director of Photography</p>
           </div>
 
+          <div class="film-video">
+            <!--<iframe
+              src="https://www.youtube.com/embed/-hJaMeOn9nI"
+              title="All You Can Eat (2026)"
+              frameborder="0"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen>
+            </iframe>-->
+          </div>
+
+          <div class="film-stills">
+            <div class="stills-grid">
+              <!--<img src="/filmography/stills/sbodstill1.jpg" alt="Still 1" class="lightbox-img" />
+              <img src="/filmography/stills/sbodstill2.jpg" alt="Still 2" class="lightbox-img" />-->
+            </div>
+          </div>
+
+          <div class="lightbox" id="lightbox">
+            <span class="lightbox-close" id="lightbox-close">&times;</span>
+            <img src="/icons/arrow.svg" class="lightbox-prev" alt="Previous image" onclick="prevImage()" />
+            <img src="/icons/arrow right.svg" class="lightbox-next" alt="Next image" onclick="nextImage()" />
+            <img class="lightbox-content" id="lightbox-content" alt="" />
+          </div>
+
           <div class="film-nav">
-            <a href="/films/delilah/">← Delilah (Upcoming 2026)</a>
+            <a href="/films/delilah/">← Delilah (Coming 2026)</a>
+            <a href="/films//"></a>
           </div>
         </section>
 
@@ -86,6 +114,60 @@
           btn.classList.toggle('is-open');
         });
       }
+
+      const lightbox = document.getElementById('lightbox');
+      const lightboxContent = document.getElementById('lightbox-content');
+      const lightboxClose = document.getElementById('lightbox-close');
+      const lightboxImages = document.querySelectorAll('.lightbox-img');
+
+      let currentIndex = 0;
+
+      function showImage(index) {
+        currentIndex = index;
+        const img = lightboxImages[currentIndex];
+        if (!img) return;
+        lightboxContent.src = img.src;
+        lightboxContent.alt = img.alt;
+        lightbox.style.display = 'flex';
+      }
+
+      lightboxImages.forEach((img, index) => {
+        img.addEventListener('click', () => {
+          showImage(index);
+        });
+      });
+
+      window.nextImage = function () {
+        currentIndex = (currentIndex + 1) % lightboxImages.length;
+        showImage(currentIndex);
+      };
+
+      window.prevImage = function () {
+        currentIndex = (currentIndex - 1 + lightboxImages.length) % lightboxImages.length;
+        showImage(currentIndex);
+      };
+
+      if (lightboxClose) {
+        lightboxClose.addEventListener('click', () => {
+          lightbox.style.display = 'none';
+        });
+      }
+
+      if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox && lightbox.style.display === 'flex') {
+          if (e.key === 'ArrowRight') nextImage();
+          if (e.key === 'ArrowLeft') prevImage();
+          if (e.key === 'Escape') lightbox.style.display = 'none';
+        }
+      });
     </script>
   </body>
 </html>
