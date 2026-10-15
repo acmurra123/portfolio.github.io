@@ -447,10 +447,21 @@ main p {
 
 .film-nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   margin-top: 2rem;
   flex-wrap: wrap;
+}
+
+.film-nav .prev-film {
+  margin-right: auto;
+  text-align: left;
+}
+
+.film-nav .next-film {
+  margin-left: auto;
+  text-align: right;
 }
 
 .film-nav a {
