@@ -395,8 +395,11 @@ main p {
 }
 
 .film-item img {
+  display: block;
   width: 100%;
-  height: auto;
+  aspect-ratio: 16 / 9;
+  height: 100%;
+  object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.25s ease, opacity 0.25s ease;
