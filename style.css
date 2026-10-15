@@ -769,3 +769,9 @@ main p {
   padding: 0;
   color: #9f0b0b;
 }
+
+.bts-collage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
