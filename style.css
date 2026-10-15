@@ -342,11 +342,13 @@ main p {
   max-width: 700px;
   margin: 0 auto;
   margin-top: -3rem;
-  margin-bottom: -3rem;
+  margin-bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .contact-graphic {
