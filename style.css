@@ -840,10 +840,10 @@ main p {
 
 .photo-reel {
   display: flex;
-  gap: 1rem;
+  gap: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -853,7 +853,7 @@ main p {
 }
 
 .photo-reel img {
-  height: 400px;
+  height: 450px;
   width: auto;
   max-width: none;
   flex-shrink: 0;
@@ -905,6 +905,6 @@ main p {
   }
 
   .photo-reel img {
-    height: 280px;
+    height: 350px;
   }
 }
