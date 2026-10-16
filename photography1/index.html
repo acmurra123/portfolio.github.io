@@ -146,93 +146,89 @@
         const originals = Array.from(reel.querySelectorAll('img'));
         if (originals.length < 2) return;
       
-        // Duplicate the photos before and after the originals
-        // so scrolling can continue in either direction.
-        const before = originals.map(img => img.cloneNode(true));
-        const after = originals.map(img => img.cloneNode(true));
+        // Duplicate images on both sides of the original set.
+        function cloneImage(img) {
+          const clone = img.cloneNode(true);
+          clone.alt = '';
+          clone.setAttribute('aria-hidden', 'true');
+          return clone;
+        }
       
-        before.forEach(img => {
-          img.setAttribute('aria-hidden', 'true');
-          img.alt = '';
-          reel.insertBefore(img, reel.firstChild);
+        originals.slice().reverse().forEach(img => {
+          reel.prepend(cloneImage(img));
         });
       
-        after.forEach(img => {
-          img.setAttribute('aria-hidden', 'true');
-          img.alt = '';
-          reel.appendChild(img);
+        originals.forEach(img => {
+          reel.appendChild(cloneImage(img));
         });
       
         let animationId = null;
         let isAnimating = false;
-      
         const duration = 1200;
       
-        function getPositions() {
-          return Array.from(reel.querySelectorAll('img')).map(img =>
-            img.offsetLeft - reel.offsetLeft
+        function positions() {
+          return Array.from(reel.querySelectorAll('img')).map(
+            img => img.offsetLeft - reel.offsetLeft
           );
         }
       
-        function getCycleWidth() {
-          const positions = getPositions();
-          return positions[originals.length * 2] -
-                 positions[originals.length];
+        function cycleWidth() {
+          const p = positions();
+          return p[originals.length * 2] - p[originals.length];
+        }
+      
+        function normalize() {
+          if (isAnimating) return;
+      
+          const p = positions();
+          const start = p[originals.length];
+          const end = p[originals.length * 2];
+          const width = cycleWidth();
+      
+          if (width <= 0) return;
+      
+          if (reel.scrollLeft >= end) {
+            reel.scrollLeft -= width;
+          } else if (reel.scrollLeft < start) {
+            reel.scrollLeft += width;
+          }
         }
       
         function initialize() {
-          const positions = getPositions();
-          reel.scrollLeft = positions[originals.length];
+          reel.scrollLeft = positions()[originals.length];
         }
       
         function moveReel(direction) {
           if (isAnimating) return;
       
-          const positions = getPositions();
+          normalize();
+      
+          const p = positions();
           const current = reel.scrollLeft;
       
-          let target;
-      
-          if (direction === 1) {
-            target = positions.find(pos => pos > current + 2);
-          } else {
-            target = [...positions].reverse().find(pos => pos < current - 2);
-          }
+          const target = direction > 0
+            ? p.find(x => x > current + 2)
+            : [...p].reverse().find(x => x < current - 2);
       
           if (target === undefined) return;
       
           isAnimating = true;
       
-          const start = current;
-          const distance = target - start;
+          const distance = target - current;
           const startTime = performance.now();
       
           function animate(now) {
             const progress = Math.min((now - startTime) / duration, 1);
-      
-            // Smooth acceleration and deceleration
             const eased = 0.5 - Math.cos(Math.PI * progress) / 2;
       
-            reel.scrollLeft = start + distance * eased;
+            reel.scrollLeft = current + distance * eased;
       
             if (progress < 1) {
               animationId = requestAnimationFrame(animate);
             } else {
               animationId = null;
-      
-              // Instantly reposition to the matching original photo.
-              // Because the images are identical, the reset is invisible.
-              const cycleWidth = getCycleWidth();
-              const firstOriginal = positions[originals.length];
-              const firstAfter = positions[originals.length * 2];
-      
-              if (reel.scrollLeft >= firstAfter - 2) {
-                reel.scrollLeft -= cycleWidth;
-              } else if (reel.scrollLeft < firstOriginal - 2) {
-                reel.scrollLeft += cycleWidth;
-              }
-      
               isAnimating = false;
+              normalize();
             }
           }
       
@@ -242,9 +238,25 @@
         prev.addEventListener('click', () => moveReel(-1));
         next.addEventListener('click', () => moveReel(1));
       
-        // Wait for the images to load before positioning the reel.
+        // Keep manual scrolling within the repeating middle set.
+        // requestAnimationFrame prevents excessive scroll processing.
+        let scrollFrame = null;
+      
+        reel.addEventListener('scroll', () => {
+          if (isAnimating || scrollFrame !== null) return;
+      
+          scrollFrame = requestAnimationFrame(() => {
+            scrollFrame = null;
+            normalize();
+          });
+        }, { passive: true });
+      
+        // Reposition after touch momentum finishes.
+        reel.addEventListener('scrollend', normalize);
+      
+        // Wait until photos have dimensions before initializing.
         Promise.all(
-          originals.map(img =>
+          Array.from(reel.querySelectorAll('img')).map(img =>
             img.complete
               ? Promise.resolve()
               : new Promise(resolve => {
@@ -253,6 +265,10 @@
                 })
           )
         ).then(initialize);
+      
+        window.addEventListener('resize', () => {
+          if (!isAnimating) initialize();
+        });
       });
     </script>
   </body>
