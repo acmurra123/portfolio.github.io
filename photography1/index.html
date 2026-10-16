@@ -160,7 +160,26 @@
             if (target === undefined) target = 0;
           }
       
-          reel.scrollTo({ left: target, behavior: 'smooth' });
+          const start = reel.scrollLeft;
+          const distance = target - start;
+          const duration = 1000; // 1000ms = 1 second
+          const startTime = performance.now();
+          
+          function animateScroll(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+          
+            // Gentle ease-in-out
+            const eased = 0.5 - Math.cos(progress * Math.PI) / 2;
+          
+            reel.scrollLeft = start + distance * eased;
+          
+            if (progress < 1) {
+              requestAnimationFrame(animateScroll);
+            }
+          }
+          
+          requestAnimationFrame(animateScroll);
         }
       
         prev.addEventListener('click', () => moveReel(-1));
