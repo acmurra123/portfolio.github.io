@@ -137,68 +137,122 @@
         });
       }
 
-      // Photography reel arrows
-        document.querySelectorAll('.photo-section').forEach(section => {
+      // Seamless photography reel
+      document.querySelectorAll('.photo-section').forEach(section => {
         const reel = section.querySelector('.photo-reel');
         const prev = section.querySelector('.photo-prev');
         const next = section.querySelector('.photo-next');
       
+        const originals = Array.from(reel.querySelectorAll('img'));
+        if (originals.length < 2) return;
+      
+        // Duplicate the photos before and after the originals
+        // so scrolling can continue in either direction.
+        const before = originals.map(img => img.cloneNode(true));
+        const after = originals.map(img => img.cloneNode(true));
+      
+        before.forEach(img => {
+          img.setAttribute('aria-hidden', 'true');
+          img.alt = '';
+          reel.insertBefore(img, reel.firstChild);
+        });
+      
+        after.forEach(img => {
+          img.setAttribute('aria-hidden', 'true');
+          img.alt = '';
+          reel.appendChild(img);
+        });
+      
         let animationId = null;
+        let isAnimating = false;
+      
+        const duration = 1200;
+      
+        function getPositions() {
+          return Array.from(reel.querySelectorAll('img')).map(img =>
+            img.offsetLeft - reel.offsetLeft
+          );
+        }
+      
+        function getCycleWidth() {
+          const positions = getPositions();
+          return positions[originals.length * 2] -
+                 positions[originals.length];
+        }
+      
+        function initialize() {
+          const positions = getPositions();
+          reel.scrollLeft = positions[originals.length];
+        }
       
         function moveReel(direction) {
-          const images = Array.from(reel.querySelectorAll('img'));
-          if (images.length < 2) return;
+          if (isAnimating) return;
       
-          // Stop any previous animation
-          if (animationId !== null) {
-            cancelAnimationFrame(animationId);
-          }
-      
-          const maxScroll = reel.scrollWidth - reel.clientWidth;
+          const positions = getPositions();
           const current = reel.scrollLeft;
-          const positions = images.map(img =>
-            Math.min(img.offsetLeft - reel.offsetLeft, maxScroll)
-          );
       
           let target;
       
           if (direction === 1) {
-            target = positions.find(pos => pos > current + 5);
-      
-            // Last photo -> first photo
-            if (target === undefined) target = 0;
+            target = positions.find(pos => pos > current + 2);
           } else {
-            target = [...positions].reverse().find(pos => pos < current - 5);
-      
-            // First photo -> last photo
-            if (target === undefined) target = maxScroll;
+            target = [...positions].reverse().find(pos => pos < current - 2);
           }
       
-          const start = reel.scrollLeft;
+          if (target === undefined) return;
+      
+          isAnimating = true;
+      
+          const start = current;
           const distance = target - start;
-          const duration = 1200;
           const startTime = performance.now();
       
-          function animateScroll(now) {
+          function animate(now) {
             const progress = Math.min((now - startTime) / duration, 1);
       
-            // Smooth ease-in-out animation
+            // Smooth acceleration and deceleration
             const eased = 0.5 - Math.cos(Math.PI * progress) / 2;
       
             reel.scrollLeft = start + distance * eased;
       
             if (progress < 1) {
-              animationId = requestAnimationFrame(animateScroll);
+              animationId = requestAnimationFrame(animate);
             } else {
               animationId = null;
+      
+              // Instantly reposition to the matching original photo.
+              // Because the images are identical, the reset is invisible.
+              const cycleWidth = getCycleWidth();
+              const firstOriginal = positions[originals.length];
+              const firstAfter = positions[originals.length * 2];
+      
+              if (reel.scrollLeft >= firstAfter - 2) {
+                reel.scrollLeft -= cycleWidth;
+              } else if (reel.scrollLeft < firstOriginal - 2) {
+                reel.scrollLeft += cycleWidth;
+              }
+      
+              isAnimating = false;
             }
           }
       
-          animationId = requestAnimationFrame(animateScroll);
+          animationId = requestAnimationFrame(animate);
         }
       
         prev.addEventListener('click', () => moveReel(-1));
         next.addEventListener('click', () => moveReel(1));
+      
+        // Wait for the images to load before positioning the reel.
+        Promise.all(
+          originals.map(img =>
+            img.complete
+              ? Promise.resolve()
+              : new Promise(resolve => {
+                  img.addEventListener('load', resolve, { once: true });
+                  img.addEventListener('error', resolve, { once: true });
+                })
+          )
+        ).then(initialize);
       });
     </script>
   </body>
