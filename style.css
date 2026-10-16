@@ -846,6 +846,7 @@ main p {
   scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 
 .photo-reel::-webkit-scrollbar {
