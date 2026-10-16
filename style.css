@@ -889,14 +889,22 @@ main p {
 
 @media (max-width: 800px) {
   .photo-category-nav {
-    gap: 0.75rem 1.25rem;
-    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    gap: 0;
+    margin: 1rem 0 3rem;
+    align-items: center;
+    text-align: center;
   }
-
+  
   .photo-category-nav a {
-    font-size: 1.2rem;
+    font-size: 0.95rem;
+    padding: 0 0.25rem;
+    white-space: nowrap;
+    min-height: 35px;
   }
-
+  
   .photo-section {
     margin-bottom: 3.5rem;
   }
