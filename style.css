@@ -793,19 +793,28 @@ main p {
 }
 
 .photo-category-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  width: 100%;
   margin: 1rem 0 4rem;
   text-align: center;
 }
 
 .photo-category-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 0.75rem;
   color: #9f0b0b;
   text-decoration: none;
   font-family: 'Lancelot', serif;
   font-size: 1.5rem;
+}
+
+.photo-category-nav a:not(:last-child) {
+  border-right: 1px solid #9f0b0b;
 }
 
 .photo-category-nav a:hover {
