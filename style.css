@@ -842,7 +842,7 @@ main p {
   display: flex;
   gap: 0;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: none;
   scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
