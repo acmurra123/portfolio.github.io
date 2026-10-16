@@ -133,6 +133,36 @@
           btn.classList.toggle('is-open');
         });
       }
+
+      // Photography reel arrows
+      document.querySelectorAll('.photo-section').forEach(section => {
+        const reel = section.querySelector('.photo-reel');
+        const prev = section.querySelector('.photo-prev');
+        const next = section.querySelector('.photo-next');
+      
+        function moveReel(direction) {
+          const images = Array.from(reel.querySelectorAll('img'));
+          if (!images.length) return;
+      
+          const current = reel.scrollLeft;
+          const positions = images.map(img => img.offsetLeft - reel.offsetLeft);
+      
+          let target;
+      
+          if (direction === 1) {
+            target = positions.find(pos => pos > current + 5);
+            if (target === undefined) target = reel.scrollWidth;
+          } else {
+            target = [...positions].reverse().find(pos => pos < current - 5);
+            if (target === undefined) target = 0;
+          }
+      
+          reel.scrollTo({ left: target, behavior: 'smooth' });
+        }
+      
+        prev.addEventListener('click', () => moveReel(-1));
+        next.addEventListener('click', () => moveReel(1));
+      });
     </script>
   </body>
 </html>
