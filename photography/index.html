@@ -53,13 +53,76 @@
           <button class="hamburger" id="menuBtn" aria-label="Toggle menu">
             <span></span><span></span><span></span>
           </button>
-          <div class="page-topline">photography</div>
+          <div class="page-topline">digital & 35mm photography</div>
         </div>
 
         <img class="decor-top-right" src="/icons/frameright.svg" alt="" />
         <img class="decor-bottom-left" src="/icons/frameleft.svg" alt="" />
 
-        <p>This Page is Under Construction!</p>
+        <div class="photography-page">
+
+      <div class="photo-category-nav">
+        <a href="#portraits">portraits & events</a>
+        <a href="#bts">behind the scenes</a>
+        <a href="#personal">personal</a>
+      </div>
+    
+      <!-- PORTRAITS & EVENTS -->
+      <section class="photo-section" id="portraits">
+        <h2>portraits & events</h2>
+    
+        <div class="photo-reel">
+          <img src="/photography/danes2024/danes28.jpg" alt="Portraits and events photograph 1">
+          <img src="/photography/danes2024/danes24.jpg" alt="Portraits and events photograph 2">
+          <img src="/photography/danes2024/danes1.jpg" alt="Portraits and events photograph 3">
+          <img src="/photography/danes2024/danes5.jpg" alt="Portraits and events photograph 4">
+          <img src="/photography/danes2024/danes9.jpg" alt="Portraits and events photograph 5">
+          <img src="/photography/danes2024/danes2.jpg" alt="Portraits and events photograph 6">
+        </div>
+    
+        <div class="photo-arrows">
+          <button type="button" class="photo-prev" aria-label="Previous portrait photograph">←</button>
+          <button type="button" class="photo-next" aria-label="Next portrait photograph">→</button>
+        </div>
+      </section>
+    
+      <!-- BEHIND THE SCENES -->
+      <section class="photo-section" id="bts">
+        <h2>behind the scenes</h2>
+
+        <p> a collection in progress </p>
+    <!--
+        <div class="photo-reel">
+          <img src="/photos/bts/photo1.jpg" alt="Behind the scenes photograph 1">
+          <img src="/photos/bts/photo2.jpg" alt="Behind the scenes photograph 2">
+          <img src="/photos/bts/photo3.jpg" alt="Behind the scenes photograph 3">
+        </div>
+    
+        <div class="photo-arrows">
+          <button type="button" class="photo-prev" aria-label="Previous behind the scenes photograph">←</button>
+          <button type="button" class="photo-next" aria-label="Next behind the scenes photograph">→</button>
+        </div>  -->
+      </section>
+    
+      <!-- PERSONAL -->
+      <section class="photo-section" id="personal">
+        <h2>personal</h2>
+        
+        <p> a collection in progress </p>
+        <!--
+        <div class="photo-reel">
+          <img src="/photos/personal/photo1.jpg" alt="Personal photograph 1">
+          <img src="/photos/personal/photo2.jpg" alt="Personal photograph 2">
+          <img src="/photos/personal/photo3.jpg" alt="Personal photograph 3">
+        </div>
+    
+        <div class="photo-arrows">
+          <button type="button" class="photo-prev" aria-label="Previous personal photograph">←</button>
+          <button type="button" class="photo-next" aria-label="Next personal photograph">→</button>
+        </div>    -->
+      </section>
+     
+    </div>
 
         <div class="bottom-centered">
           <img src="/icons/email.svg" alt="" />
@@ -77,6 +140,140 @@
           btn.classList.toggle('is-open');
         });
       }
+
+      // Seamless photography reel
+      document.querySelectorAll('.photo-section').forEach(section => {
+        const reel = section.querySelector('.photo-reel');
+        const prev = section.querySelector('.photo-prev');
+        const next = section.querySelector('.photo-next');
+      
+        const originals = Array.from(reel.querySelectorAll('img'));
+        if (originals.length < 2) return;
+      
+        // Duplicate images on both sides of the original set.
+        function cloneImage(img) {
+          const clone = img.cloneNode(true);
+          clone.alt = '';
+          clone.setAttribute('aria-hidden', 'true');
+          return clone;
+        }
+      
+        originals.slice().reverse().forEach(img => {
+          reel.prepend(cloneImage(img));
+        });
+      
+        originals.forEach(img => {
+          reel.appendChild(cloneImage(img));
+        });
+      
+        let animationId = null;
+        let isAnimating = false;
+        const duration = 1500;
+      
+        function positions() {
+          return Array.from(reel.querySelectorAll('img')).map(
+            img => img.offsetLeft - reel.offsetLeft
+          );
+        }
+      
+        function cycleWidth() {
+          const p = positions();
+          return p[originals.length * 2] - p[originals.length];
+        }
+      
+        function normalize() {
+          if (isAnimating) return;
+      
+          const p = positions();
+          const start = p[originals.length];
+          const end = p[originals.length * 2];
+          const width = cycleWidth();
+      
+          if (width <= 0) return;
+      
+          if (reel.scrollLeft >= end) {
+            reel.scrollLeft -= width;
+          } else if (reel.scrollLeft < start) {
+            reel.scrollLeft += width;
+          }
+        }
+      
+        function initialize() {
+          reel.scrollLeft = positions()[originals.length];
+        }
+      
+        function moveReel(direction) {
+          if (isAnimating) return;
+      
+          normalize();
+      
+          const p = positions();
+          const current = reel.scrollLeft;
+      
+          const target = direction > 0
+            ? p.find(x => x > current + 2)
+            : [...p].reverse().find(x => x < current - 2);
+      
+          if (target === undefined) return;
+      
+          isAnimating = true;
+      
+          const distance = target - current;
+          const startTime = performance.now();
+      
+          function animate(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const eased = 0.5 - Math.cos(Math.PI * progress) / 2;
+      
+            reel.scrollLeft = current + distance * eased;
+      
+            if (progress < 1) {
+              animationId = requestAnimationFrame(animate);
+            } else {
+              animationId = null;
+              isAnimating = false;
+              normalize();
+            }
+          }
+      
+          animationId = requestAnimationFrame(animate);
+        }
+      
+        prev.addEventListener('click', () => moveReel(-1));
+        next.addEventListener('click', () => moveReel(1));
+      
+        // Keep manual scrolling within the repeating middle set.
+        // requestAnimationFrame prevents excessive scroll processing.
+        let scrollFrame = null;
+      
+        reel.addEventListener('scroll', () => {
+          if (isAnimating || scrollFrame !== null) return;
+      
+          scrollFrame = requestAnimationFrame(() => {
+            scrollFrame = null;
+            normalize();
+          });
+        }, { passive: true });
+      
+        // Reposition after touch momentum finishes.
+        reel.addEventListener('scrollend', normalize);
+      
+        // Wait until photos have dimensions before initializing.
+        Promise.all(
+          Array.from(reel.querySelectorAll('img')).map(img =>
+            img.complete
+              ? Promise.resolve()
+              : new Promise(resolve => {
+                  img.addEventListener('load', resolve, { once: true });
+                  img.addEventListener('error', resolve, { once: true });
+                })
+          )
+        ).then(initialize);
+      
+        window.addEventListener('resize', () => {
+          if (!isAnimating) initialize();
+        });
+      });
     </script>
   </body>
 </html>
