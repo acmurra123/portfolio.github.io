@@ -925,3 +925,25 @@ main p {
     padding: 0 0.1rem;
   }
 }
+
+/* Inquiry button */
+.inquiry-link {
+  text-align: center;
+  margin: 2.5rem 0;
+}
+
+.inquiry-link a {
+  display: inline-block;
+  font-family: 'Lancelot', serif;
+  font-size: 1.4rem;
+  color: #9f0b0b;
+  text-decoration: none;
+  border: 1px solid #9f0b0b;
+  padding: 0.6rem 1.8rem;
+  transition: all 0.2s ease;
+}
+
+.inquiry-link a:hover {
+  background: #9f0b0b;
+  color: #FFFDF5;
+}
