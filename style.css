@@ -947,3 +947,27 @@ main p {
   background: #9f0b0b;
   color: #FFFDF5;
 }
+
+.portfolio-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2.5rem 0 1.5rem;
+}
+
+.portfolio-links a {
+  font-family: 'Trochut', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #9f0b0b;
+  text-decoration: none;
+  padding: 0 1.5rem;
+}
+
+.portfolio-links a + a {
+  border-left: 1px solid #9f0b0b;
+}
+
+.portfolio-links a:hover {
+  text-decoration: underline;
+}
