@@ -952,6 +952,7 @@ main p {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 4rem;
   margin: 2.5rem 0 1.5rem;
 }
 
@@ -961,11 +962,6 @@ main p {
   font-weight: 400;
   color: #9f0b0b;
   text-decoration: none;
-  padding: 0 1.5rem;
-}
-
-.portfolio-links a + a {
-  border-left: 1px solid #9f0b0b;
 }
 
 .portfolio-links a:hover {
