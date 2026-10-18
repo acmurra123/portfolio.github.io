@@ -797,7 +797,7 @@ main p {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2.5rem;
+  gap: 0rem;
   width: 100%;
   margin: 1rem 0 4rem;
   text-align: center;
@@ -810,12 +810,18 @@ main p {
   color: #9f0b0b;
   text-decoration: none;
   white-space: nowrap;
-  padding: 0;
+  padding: 0 1.25rem;
   min-height: 0;
 }
 
 .photo-category-nav a:hover {
   text-decoration: underline;
+}
+
+.photo-category-nav a:not(:last-child) {
+  border-right: 1px solid #9f0b0b;
+  padding-right: 1.25rem;
+  margin-right: -1.25rem;
 }
 
 .photo-section {
@@ -916,6 +922,7 @@ html {
 
   .photo-category-nav a {
     font-size: 0.95rem;
+    padding: 0 0.5rem;
   }
 }
 
