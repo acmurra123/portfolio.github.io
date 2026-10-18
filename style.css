@@ -885,14 +885,20 @@ main p {
 .back-to-top {
   display: block;
   width: fit-content;
-  margin: 0.5rem 0 0 auto;
+  margin: 1rem 0 0 auto;
+  text-align: right;
   font-family: 'Trochut', serif;
   font-size: 0.9rem;
   color: #9f0b0b;
   text-decoration: none;
 }
 
+.back-to-top:visited {
+  color: #9f0b0b;
+}
+
 .back-to-top:hover {
+  color: #9f0b0b;
   text-decoration: underline;
 }
 
