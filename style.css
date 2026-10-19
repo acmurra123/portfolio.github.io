@@ -975,3 +975,17 @@ html {
 .portfolio-links a:hover {
   text-decoration: underline;
 }
+
+/* About page portfolio links */
+@media (max-width: 800px) {
+  .portfolio-links {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .portfolio-links a {
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+}
